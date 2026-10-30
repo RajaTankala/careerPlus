@@ -6,7 +6,83 @@
   color: var(--text-primary);
 }
 
+.app-body {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.app-sidebar {
+  width: 190px;
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  padding: 1.25rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  z-index: 2;
+  position: relative;
+}
+
+.sidebar-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.95rem;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.sidebar-tab:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.sidebar-tab.active {
+  background: #e0edff;
+  color: #1e60f0;
+  font-weight: 700;
+}
+
+body.theme-dark .sidebar-tab.active {
+  background: rgba(30, 96, 240, 0.25);
+  color: #60a5fa;
+}
+
+.sidebar-decor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .main-content {
   flex: 1;
+  min-width: 0;
   padding-bottom: 3rem;
+}
+
+@media (max-width: 900px) {
+  .app-sidebar {
+    display: none;
+  }
 }

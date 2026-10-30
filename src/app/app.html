@@ -5,31 +5,111 @@
     (openBackupModal)="showBackupModal.set(true)"
   ></app-navbar>
 
-  <!-- Main View Area based on Active Tab -->
-  <main class="main-content">
-    @switch (storage.activeTab()) {
-      @case ('dashboard') {
-        <app-dashboard
-          (openAddWorkModal)="handleOpenAddWork()"
-          (openDocGenerator)="showDocGeneratorModal.set(true)"
-        ></app-dashboard>
+  <div class="app-body">
+    <!-- Left Sidebar Navigation -->
+    <aside class="app-sidebar no-print">
+      <nav class="sidebar-nav">
+        <button
+          class="sidebar-tab"
+          [class.active]="storage.activeTab() === 'dashboard'"
+          (click)="storage.setActiveTab('dashboard')"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+          <span>Home</span>
+        </button>
+
+        <button
+          class="sidebar-tab"
+          [class.active]="storage.activeTab() === 'work-log'"
+          (click)="storage.setActiveTab('work-log')"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+          </svg>
+          <span>Work Status</span>
+        </button>
+
+        <button
+          class="sidebar-tab"
+          [class.active]="storage.activeTab() === 'reading-roadmap'"
+          (click)="storage.setActiveTab('reading-roadmap')"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+          </svg>
+          <span>Roadmap</span>
+        </button>
+
+        <button
+          class="sidebar-tab"
+          [class.active]="storage.activeTab() === 'circle-birthdays'"
+          (click)="storage.setActiveTab('circle-birthdays')"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+          <span>Birthdays</span>
+        </button>
+
+        <button
+          class="sidebar-tab"
+          [class.active]="storage.activeTab() === 'goals'"
+          (click)="storage.setActiveTab('goals')"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="12" r="6" />
+            <circle cx="12" cy="12" r="2" />
+          </svg>
+          <span>Goals</span>
+        </button>
+      </nav>
+
+      <!-- Bottom Decorative Floral Accent -->
+      <div class="sidebar-decor">
+        <svg width="140" height="120" viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M-10 120C15 95 40 85 70 95C50 120 15 130 -10 120Z" fill="#93c5fd" fill-opacity="0.5" />
+          <path d="M-20 100C10 60 45 45 65 65C45 95 10 110 -20 100Z" fill="#bfdbfe" fill-opacity="0.6" />
+          <path d="M-15 70C25 35 60 25 75 45C55 75 15 85 -15 70Z" fill="#dbeafe" fill-opacity="0.7" />
+          <path d="M10 115C35 90 55 95 65 110C50 125 25 125 10 115Z" fill="#60a5fa" fill-opacity="0.4" />
+        </svg>
+      </div>
+    </aside>
+
+    <!-- Main View Area based on Active Tab -->
+    <main class="main-content">
+      @switch (storage.activeTab()) {
+        @case ('dashboard') {
+          <app-dashboard
+            (openAddWorkModal)="handleOpenAddWork()"
+            (openDocGenerator)="showDocGeneratorModal.set(true)"
+          ></app-dashboard>
+        }
+        @case ('work-log') {
+          <app-work-tracker
+            (openDocGenerator)="showDocGeneratorModal.set(true)"
+          ></app-work-tracker>
+        }
+        @case ('reading-roadmap') {
+          <app-reading-scheduler></app-reading-scheduler>
+        }
+        @case ('circle-birthdays') {
+          <app-birthday-circle></app-birthday-circle>
+        }
+        @case ('goals') {
+          <app-career-goals></app-career-goals>
+        }
       }
-      @case ('work-log') {
-        <app-work-tracker
-          (openDocGenerator)="showDocGeneratorModal.set(true)"
-        ></app-work-tracker>
-      }
-      @case ('reading-roadmap') {
-        <app-reading-scheduler></app-reading-scheduler>
-      }
-      @case ('circle-birthdays') {
-        <app-birthday-circle></app-birthday-circle>
-      }
-      @case ('goals') {
-        <app-career-goals></app-career-goals>
-      }
-    }
-  </main>
+    </main>
+  </div>
 
   <!-- Document Generation Modal -->
   @if (showDocGeneratorModal()) {

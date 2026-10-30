@@ -569,7 +569,7 @@ export class StorageService {
       if (savedTheme === 'light' || savedTheme === 'dark') {
         this.setTheme(savedTheme);
       } else {
-        this.setTheme('dark');
+        this.setTheme('light');
       }
 
       const rawWork = localStorage.getItem(STORAGE_KEYS.WORK_ITEMS);
@@ -579,10 +579,22 @@ export class StorageService {
       const rawNotifs = localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS);
       const rawProfile = localStorage.getItem(STORAGE_KEYS.USER_PROFILE);
 
-      this.workItems.set(rawWork ? JSON.parse(rawWork) : INITIAL_WORK_ITEMS);
+      let loadedWork: WorkItem[] = rawWork ? JSON.parse(rawWork) : INITIAL_WORK_ITEMS;
+      if (Array.isArray(loadedWork)) {
+        const loanItem = loadedWork.find((w) => w.id === 'work-loan-calc');
+        if (loanItem) {
+          loanItem.date = this.todayDateString();
+        } else {
+          loadedWork = INITIAL_WORK_ITEMS;
+          try {
+            localStorage.setItem(STORAGE_KEYS.WORK_ITEMS, JSON.stringify(INITIAL_WORK_ITEMS));
+          } catch {}
+        }
+      }
+      this.workItems.set(loadedWork);
 
       let loadedReading: ReadingTopic[] = rawReading ? JSON.parse(rawReading) : INITIAL_READING_TOPICS;
-      if (Array.isArray(loadedReading) && !loadedReading.some((t) => t.id === 'read-spring-fundamentals')) {
+      if (Array.isArray(loadedReading) && (!loadedReading.some((t) => t.id === 'read-spring-fundamentals') || loadedReading.some((t) => t.status === 'completed'))) {
         loadedReading = INITIAL_READING_TOPICS;
         try {
           localStorage.setItem(STORAGE_KEYS.READING_TOPICS, JSON.stringify(INITIAL_READING_TOPICS));
@@ -590,19 +602,25 @@ export class StorageService {
       }
       this.readingTopics.set(loadedReading);
 
-      this.circleBirthdays.set(rawBirthdays ? JSON.parse(rawBirthdays) : INITIAL_CIRCLE_BIRTHDAYS);
+      let loadedBirthdays: CircleBirthday[] = rawBirthdays ? JSON.parse(rawBirthdays) : INITIAL_CIRCLE_BIRTHDAYS;
+      if (Array.isArray(loadedBirthdays) && loadedBirthdays.length > 1) {
+        loadedBirthdays = INITIAL_CIRCLE_BIRTHDAYS;
+        try {
+          localStorage.setItem(STORAGE_KEYS.BIRTHDAYS, JSON.stringify(INITIAL_CIRCLE_BIRTHDAYS));
+        } catch {}
+      }
+      this.circleBirthdays.set(loadedBirthdays);
       this.careerGoals.set(rawGoals ? JSON.parse(rawGoals) : INITIAL_CAREER_GOALS);
       this.notifications.set(rawNotifs ? JSON.parse(rawNotifs) : INITIAL_NOTIFICATIONS);
 
       if (rawProfile) {
         const parsed = JSON.parse(rawProfile);
-        if (parsed.name === 'Raja') {
-          parsed.name = INITIAL_USER_PROFILE.name;
-          parsed.organization = INITIAL_USER_PROFILE.organization;
-          try {
-            localStorage.setItem(STORAGE_KEYS.USER_PROFILE, JSON.stringify(parsed));
-          } catch {}
-        }
+        parsed.name = INITIAL_USER_PROFILE.name;
+        parsed.organization = INITIAL_USER_PROFILE.organization;
+        parsed.readingStreakDays = INITIAL_USER_PROFILE.readingStreakDays;
+        try {
+          localStorage.setItem(STORAGE_KEYS.USER_PROFILE, JSON.stringify(parsed));
+        } catch {}
         this.userProfile.set(parsed);
       } else {
         this.userProfile.set(INITIAL_USER_PROFILE);
