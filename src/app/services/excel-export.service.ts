@@ -119,7 +119,7 @@ export class ExcelExportService {
 
     // Write file
     const dateStr = new Date().toISOString().split('T')[0];
-    const filename = `CareerPulse_Comprehensive_Report_${dateStr}.xlsx`;
+    const filename = `CareerPlus_Comprehensive_Report_${dateStr}.xlsx`;
     XLSX.writeFile(wb, filename);
 
     this.toast.show(

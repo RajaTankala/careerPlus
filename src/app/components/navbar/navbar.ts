@@ -11,14 +11,17 @@ import { ExcelExportService } from '../../services/excel-export.service';
     <header class="navbar-wrapper no-print">
       <div class="navbar-container">
         <!-- Logo & Branding -->
-        <div class="brand-group" (click)="storage.setActiveTab('dashboard')">
+        <div class="brand-group" (click)="storage.setActiveTab('dashboard')" title="CareerPlus - Professional Growth Hub">
           <div class="brand-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2.5C12 2.5 17.5 6.5 17.5 13C17.5 16.5 15.2 18.5 15.2 18.5L12 17L8.8 18.5C8.8 18.5 6.5 16.5 6.5 13C6.5 6.5 12 2.5 12 2.5Z" fill="#ffffff" />
+              <circle cx="12" cy="10" r="2.2" fill="#6366f1" />
+              <path d="M10.5 19L12 22L13.5 19" stroke="#fef08a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M19 3V7M17 5H21" stroke="#fef08a" stroke-width="2" stroke-linecap="round" />
             </svg>
           </div>
           <div class="brand-text">
-            <span class="brand-name">Career<span class="brand-highlight">Pulse</span></span>
+            <span class="brand-name">Career<span class="brand-highlight">Plus</span></span>
             <span class="brand-tag">PRO</span>
           </div>
         </div>

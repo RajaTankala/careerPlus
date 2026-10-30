@@ -143,7 +143,7 @@ export class DocumentGeneratorService {
     }
 
     lines.push('---');
-    lines.push(`*Generated via CareerPulse — Personal Career & Work Hub*`);
+    lines.push(`*Generated via CareerPlus — Personal Career & Work Hub*`);
     return lines.join('\n');
   }
 
@@ -368,7 +368,7 @@ export class DocumentGeneratorService {
 
     <!-- Footer -->
     <div style="margin-top: 40px; border-top: 1px solid #e2e8f0; padding-top: 12px; text-align: center; font-size: 12px; color: #94a3b8;">
-      Confidential • CareerPulse Executive Report • Generated on ${new Date().toISOString().split('T')[0]}
+      Confidential • CareerPlus Executive Report • Generated on ${new Date().toISOString().split('T')[0]}
     </div>
   </div>
 </body>

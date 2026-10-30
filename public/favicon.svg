@@ -1,0 +1,40 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="favBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="50%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#db2777" />
+    </linearGradient>
+    <linearGradient id="bodyGrad" x1="16" y1="8" x2="48" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="45" y1="10" x2="55" y2="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="100%" stop-color="#facc15" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer Rounded Squircle with Subtle Border -->
+  <rect width="64" height="64" rx="16" fill="url(#favBg)" />
+  <rect x="1" y="1" width="62" height="62" rx="15" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+
+  <!-- Wings -->
+  <path d="M22 36L14 43L18 48L25 44" fill="#a5b4fc" />
+  <path d="M42 36L50 43L46 48L39 44" fill="#a5b4fc" />
+
+  <!-- Rocket Body -->
+  <path d="M32 9C32 9 45 19 45 34C45 42.5 39 46.5 39 46.5L32 43.5L25 46.5C25 46.5 19 42.5 19 34C19 19 32 9 32 9Z" fill="url(#bodyGrad)" />
+
+  <!-- Porthole Window -->
+  <circle cx="32" cy="27" r="5.5" fill="#4f46e5" />
+  <circle cx="32" cy="27" r="3.2" fill="#38bdf8" />
+  <circle cx="30.5" cy="25.5" r="1.2" fill="#ffffff" />
+
+  <!-- Exhaust Flame -->
+  <path d="M28 47L32 55L36 47" stroke="#f43f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M30 47L32 52L34 47" stroke="#fef08a" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Golden Plus Sparkle (Career PLUS) -->
+  <path d="M50 10V20M45 15H55" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linecap="round" />
+</svg>
