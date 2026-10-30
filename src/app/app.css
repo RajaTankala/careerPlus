@@ -1,0 +1,12 @@
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+}
+
+.main-content {
+  flex: 1;
+  padding-bottom: 3rem;
+}

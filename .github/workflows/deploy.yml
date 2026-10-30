@@ -1,0 +1,53 @@
+name: Deploy CareerPulse to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Angular App for GitHub Pages
+        run: |
+          npx ng build --configuration production --base-href="./"
+          # Support client-side SPA routing on GitHub Pages
+          if [ -d "dist/career-pulse/browser" ]; then
+            cp dist/career-pulse/browser/index.html dist/career-pulse/browser/404.html
+          else
+            cp dist/career-pulse/index.html dist/career-pulse/404.html
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'dist/career-pulse/browser'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
