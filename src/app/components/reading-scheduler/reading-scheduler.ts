@@ -13,17 +13,17 @@ import { ReadingTopic, ReadingCategory, ReadingStatus, ReadingResource } from '.
       <!-- Header -->
       <div class="page-header">
         <div>
-          <h1 class="page-title">Monthly Reading & Learning Roadmap</h1>
+          <h1 class="page-title gradient-title">Monthly Reading & Learning Roadmap</h1>
           <p class="page-subtitle">
-            Configure monthly technical topics, curate books and RFCs, and receive automated reminders to compound your career expertise.
+            Configure monthly technical topics, curate books, RFCs, and Spring Boot / DSA modules with automated reminders.
           </p>
         </div>
-        <button class="btn btn-primary" (click)="openCreateModal()">
+        <button class="btn btn-spring" (click)="openCreateModal()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <line x1="12" y1="5" x2="12" y2="19" />
             <line x1="5" y1="12" x2="19" y2="12" />
           </svg>
-          <span>+ Add Reading Topic</span>
+          <span>+ Add Roadmap Topic</span>
         </button>
       </div>
 
@@ -38,7 +38,7 @@ import { ReadingTopic, ReadingCategory, ReadingStatus, ReadingResource } from '.
               "{{ storage.overdueReadingTopics()[0].title }}"
             </span>
           </div>
-          <button class="btn btn-sm btn-primary" (click)="scrollToTopic(storage.overdueReadingTopics()[0].id)">
+          <button class="btn btn-sm btn-amber" (click)="scrollToTopic(storage.overdueReadingTopics()[0].id)">
             Focus Now
           </button>
         </div>
@@ -100,7 +100,7 @@ import { ReadingTopic, ReadingCategory, ReadingStatus, ReadingResource } from '.
               <div class="topic-header">
                 <div class="topic-meta-left">
                   <span class="badge" [ngClass]="getCategoryBadgeClass(topic.category)">
-                    {{ topic.category }}
+                    {{ getCategoryIcon(topic.category) }} {{ topic.category }}
                   </span>
                   <span class="month-badge">{{ topic.monthLabel }}</span>
                   @if (topic.priority === 'high') {
@@ -219,10 +219,10 @@ import { ReadingTopic, ReadingCategory, ReadingStatus, ReadingResource } from '.
 
                 <button
                   class="btn btn-sm"
-                  [ngClass]="topic.status === 'completed' ? 'btn-secondary' : 'btn-outline'"
+                  [ngClass]="topic.status === 'completed' ? 'btn-secondary' : 'btn-success'"
                   (click)="toggleTopicCompleted(topic)"
                 >
-                  {{ topic.status === 'completed' ? 'Re-open Topic' : 'Mark Topic Complete' }}
+                  <span>{{ topic.status === 'completed' ? '↺ Re-open Topic' : '✓ Mark Topic Complete' }}</span>
                 </button>
               </div>
             </div>
@@ -284,6 +284,7 @@ import { ReadingTopic, ReadingCategory, ReadingStatus, ReadingResource } from '.
                     <option value="Data & AI">Data & AI</option>
                     <option value="Career & Habits">Career & Habits</option>
                     <option value="Data Structures & Algorithms">Data Structures & Algorithms</option>
+                    <option value="Spring Boot Mastery">🍃 Spring Boot Mastery</option>
                   </select>
                 </div>
 
@@ -909,8 +910,37 @@ export class ReadingSchedulerComponent {
         return 'badge-cyan';
       case 'Data Structures & Algorithms':
         return 'badge-purple';
+      case 'Spring Boot Mastery':
+        return 'badge-spring';
       default:
         return 'badge-indigo';
+    }
+  }
+
+  public getCategoryIcon(category: string): string {
+    switch (category) {
+      case 'Spring Boot Mastery':
+        return '🍃';
+      case 'Data Structures & Algorithms':
+        return '🧱';
+      case 'Backend & APIs':
+        return '☕';
+      case 'Architecture':
+        return '🏛️';
+      case 'System Design':
+        return '📐';
+      case 'Cloud & DevOps':
+        return '☁️';
+      case 'Frontend Mastery':
+        return '⚡';
+      case 'Leadership & Strategy':
+        return '🌟';
+      case 'Data & AI':
+        return '🤖';
+      case 'Career & Habits':
+        return '🎯';
+      default:
+        return '📚';
     }
   }
 

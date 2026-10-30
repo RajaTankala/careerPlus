@@ -9,7 +9,8 @@ export type ReadingCategory =
   | 'Leadership & Strategy'
   | 'Data & AI'
   | 'Career & Habits'
-  | 'Data Structures & Algorithms';
+  | 'Data Structures & Algorithms'
+  | 'Spring Boot Mastery';
 
 export interface ReadingResource {
   id: string;

@@ -582,7 +582,7 @@ export class StorageService {
       this.workItems.set(rawWork ? JSON.parse(rawWork) : INITIAL_WORK_ITEMS);
 
       let loadedReading: ReadingTopic[] = rawReading ? JSON.parse(rawReading) : INITIAL_READING_TOPICS;
-      if (Array.isArray(loadedReading) && loadedReading.some((t) => t.id === 'read-1') && !loadedReading.some((t) => t.id === 'read-java-core')) {
+      if (Array.isArray(loadedReading) && !loadedReading.some((t) => t.id === 'read-spring-fundamentals')) {
         loadedReading = INITIAL_READING_TOPICS;
         try {
           localStorage.setItem(STORAGE_KEYS.READING_TOPICS, JSON.stringify(INITIAL_READING_TOPICS));
