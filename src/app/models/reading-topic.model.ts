@@ -8,7 +8,8 @@ export type ReadingCategory =
   | 'System Design'
   | 'Leadership & Strategy'
   | 'Data & AI'
-  | 'Career & Habits';
+  | 'Career & Habits'
+  | 'Data Structures & Algorithms';
 
 export interface ReadingResource {
   id: string;

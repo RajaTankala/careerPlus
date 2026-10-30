@@ -283,6 +283,7 @@ import { ReadingTopic, ReadingCategory, ReadingStatus, ReadingResource } from '.
                     <option value="Leadership & Strategy">Leadership & Strategy</option>
                     <option value="Data & AI">Data & AI</option>
                     <option value="Career & Habits">Career & Habits</option>
+                    <option value="Data Structures & Algorithms">Data Structures & Algorithms</option>
                   </select>
                 </div>
 
@@ -906,6 +907,8 @@ export class ReadingSchedulerComponent {
         return 'badge-amber';
       case 'Cloud & DevOps':
         return 'badge-cyan';
+      case 'Data Structures & Algorithms':
+        return 'badge-purple';
       default:
         return 'badge-indigo';
     }

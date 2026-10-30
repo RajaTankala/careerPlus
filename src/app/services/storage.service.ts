@@ -580,12 +580,32 @@ export class StorageService {
       const rawProfile = localStorage.getItem(STORAGE_KEYS.USER_PROFILE);
 
       this.workItems.set(rawWork ? JSON.parse(rawWork) : INITIAL_WORK_ITEMS);
-      this.readingTopics.set(rawReading ? JSON.parse(rawReading) : INITIAL_READING_TOPICS);
+
+      let loadedReading: ReadingTopic[] = rawReading ? JSON.parse(rawReading) : INITIAL_READING_TOPICS;
+      if (Array.isArray(loadedReading) && loadedReading.some((t) => t.id === 'read-1') && !loadedReading.some((t) => t.id === 'read-java-core')) {
+        loadedReading = INITIAL_READING_TOPICS;
+        try {
+          localStorage.setItem(STORAGE_KEYS.READING_TOPICS, JSON.stringify(INITIAL_READING_TOPICS));
+        } catch {}
+      }
+      this.readingTopics.set(loadedReading);
+
       this.circleBirthdays.set(rawBirthdays ? JSON.parse(rawBirthdays) : INITIAL_CIRCLE_BIRTHDAYS);
       this.careerGoals.set(rawGoals ? JSON.parse(rawGoals) : INITIAL_CAREER_GOALS);
       this.notifications.set(rawNotifs ? JSON.parse(rawNotifs) : INITIAL_NOTIFICATIONS);
+
       if (rawProfile) {
-        this.userProfile.set(JSON.parse(rawProfile));
+        const parsed = JSON.parse(rawProfile);
+        if (parsed.name === 'Raja') {
+          parsed.name = INITIAL_USER_PROFILE.name;
+          parsed.organization = INITIAL_USER_PROFILE.organization;
+          try {
+            localStorage.setItem(STORAGE_KEYS.USER_PROFILE, JSON.stringify(parsed));
+          } catch {}
+        }
+        this.userProfile.set(parsed);
+      } else {
+        this.userProfile.set(INITIAL_USER_PROFILE);
       }
     } catch (err) {
       console.warn('Failed to parse saved data from localStorage, falling back to seed data', err);
